@@ -1,0 +1,984 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap");
+
+:root {
+  font-family: "DM Sans", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+}
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+.app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 28px 22px 34px;
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+.app.light {
+  --page: #f7f7f2;
+  --surface: #fffefa;
+  --surface-soft: #f4f6f0;
+  --surface-hover: #edf4eb;
+  --text: #171d1a;
+  --muted: #737c76;
+  --line: #e6e9e2;
+  --green: #247b3d;
+  --green-dark: #17652f;
+  --green-soft: #eaf4e9;
+  --progress-bg: #d9dfd8;
+  --shadow: 0 14px 36px rgba(30, 48, 34, 0.07);
+  --mountain-opacity: 0.92;
+}
+.app.dark {
+  --page: #0b1713;
+  --surface: #10211b;
+  --surface-soft: #162a22;
+  --surface-hover: #1b3328;
+  --text: #f3f7f2;
+  --muted: #a4b3a9;
+  --line: #2a4036;
+  --green: #78df91;
+  --green-dark: #9be9a9;
+  --green-soft: #1b3829;
+  --progress-bg: #34483e;
+  --shadow: 0 16px 38px rgba(0, 0, 0, 0.18);
+  --mountain-opacity: 0.55;
+}
+.app {
+  background: var(--page);
+  color: var(--text);
+}
+.page-shell {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: min(100%, 1080px);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.topbar {
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  border: 0;
+  padding: 0;
+  color: var(--text);
+  background: transparent;
+  font:
+    800 24px "Manrope",
+    sans-serif;
+  letter-spacing: -0.8px;
+}
+.brand-mark {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 15px;
+}
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+}
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  height: 68px;
+}
+.nav-tab {
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 13px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 16px;
+}
+.nav-tab.active {
+  color: var(--green-dark);
+  border-bottom-color: var(--green);
+}
+.nav-tab svg {
+  color: currentColor;
+}
+.theme-toggle {
+  width: 82px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--surface-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+  color: var(--muted);
+  padding: 0 8px;
+}
+.toggle-knob {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: transform 0.22s;
+}
+.dark .toggle-knob {
+  transform: translateX(39px);
+}
+.sun-icon,
+.moon-icon {
+  z-index: 1;
+}
+.light .sun-icon,
+.dark .moon-icon {
+  color: var(--green-dark);
+}
+.main-card,
+.history-card {
+  overflow: visible;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 25px;
+  padding: 29px 30px 25px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  position: relative;
+}
+.hero {
+  min-height: 128px;
+  position: relative;
+  padding: 0 10px;
+}
+.date-label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+}
+h1 {
+  margin: 9px 0 4px;
+  font:
+    800 clamp(27px, 4vw, 36px) "Manrope",
+    sans-serif;
+  letter-spacing: -1.3px;
+}
+.tagline {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--muted);
+  font-size: 15px;
+}
+.tagline > span {
+  width: 4px;
+  height: 22px;
+  border-radius: 4px;
+  background: var(--green);
+}
+.hero-mountains {
+  position: absolute;
+  width: 39%;
+  max-width: 390px;
+  height: 142px;
+  object-fit: contain;
+  object-position: right bottom;
+  right: -8px;
+  bottom: -7px;
+  opacity: var(--mountain-opacity);
+  pointer-events: none;
+}
+.progress-panel {
+  background: var(--green-soft);
+  border-radius: 17px;
+  padding: 15px 19px 16px;
+  margin: 8px 0 17px;
+}
+.progress-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.progress-top strong {
+  font:
+    800 27px "Manrope",
+    sans-serif;
+  color: var(--green-dark);
+  letter-spacing: -0.6px;
+}
+.progress-top span:not(.percent-pill) {
+  font-size: 15px;
+  font-weight: 700;
+}
+.percent-pill {
+  padding: 6px 15px;
+  border-radius: 30px;
+  background: var(--green);
+  color: white;
+  font-weight: 800;
+  font-size: 13px;
+  min-width: 62px;
+  text-align: center;
+}
+.dark .percent-pill {
+  color: #102116;
+}
+.progress-track {
+  height: 13px;
+  background: var(--progress-bg);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--green);
+  transition: width 0.25s ease;
+}
+.goal-list {
+  display: grid;
+  gap: 4px;
+}
+.goal-row {
+  min-height: 51px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 7px 12px 7px 15px;
+  background: var(--surface);
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+.goal-row:hover {
+  background: var(--surface-hover);
+}
+.check-button {
+  flex: 0 0 27px;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  border: 2px solid var(--muted);
+  background: transparent;
+  display: grid;
+  place-items: center;
+  color: white;
+  padding: 0;
+}
+.is-done .check-button {
+  border-color: var(--green-dark);
+  background: var(--green-dark);
+}
+.goal-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.is-done .goal-text {
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+}
+.goal-menu-wrap {
+  position: relative;
+}
+.more-button {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  display: grid;
+  place-items: center;
+  padding: 5px;
+  border-radius: 8px;
+}
+.more-button:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+.goal-menu {
+  position: absolute;
+  right: 0;
+  top: 31px;
+  z-index: 4;
+  min-width: 125px;
+  padding: 5px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+}
+.goal-menu button {
+  width: 100%;
+  border: 0;
+  border-radius: 7px;
+  text-align: left;
+  padding: 9px 10px;
+  background: transparent;
+  color: #c34848;
+  font-size: 13px;
+}
+.goal-menu button:hover {
+  background: var(--surface-hover);
+}
+.add-form {
+  display: flex;
+  gap: 9px;
+  margin-top: 18px;
+}
+.add-input-wrap {
+  flex: 1;
+  min-width: 0;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 17px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  color: var(--green);
+  background: var(--surface);
+}
+.add-input-wrap input {
+  min-width: 0;
+  flex: 1;
+  outline: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font-size: 15px;
+}
+.add-input-wrap input::placeholder {
+  color: var(--muted);
+}
+.add-button {
+  min-width: 91px;
+  border: 0;
+  border-radius: 13px;
+  background: var(--green-dark);
+  color: white;
+  font-weight: 800;
+  padding: 0 22px;
+  transition: opacity 0.15s;
+}
+.dark .add-button {
+  color: #102116;
+}
+.add-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.empty-state {
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--muted);
+  text-align: center;
+}
+.empty-state svg {
+  color: var(--green);
+}
+.empty-state strong {
+  color: var(--text);
+  font-size: 15px;
+}
+.empty-state span {
+  font-size: 13px;
+}
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 21px;
+}
+.summary-card {
+  min-height: 95px;
+  border: 1px solid var(--line);
+  border-radius: 19px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 16px;
+}
+.summary-card > svg {
+  color: var(--green-dark);
+  width: 27px;
+  height: 27px;
+  flex: 0 0 auto;
+}
+.summary-card div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.summary-card span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+.summary-card strong {
+  font:
+    800 21px "Manrope",
+    sans-serif;
+}
+.footer-note {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+  color: var(--muted);
+  font-size: 11px;
+  padding: 22px 4px 0;
+  letter-spacing: 0.2px;
+}
+.footer-note::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  bottom: -6px;
+  width: min(52%, 300px);
+  height: 54px;
+  background: url("/mountains.svg") center bottom / contain no-repeat;
+  opacity: 0.12;
+  pointer-events: none;
+}
+.history-card {
+  min-height: 420px;
+}
+.history-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 8px 24px;
+}
+.history-icon {
+  color: var(--green);
+}
+.history-layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) 1.4fr;
+  gap: 20px;
+}
+.history-dates {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.history-date {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--text);
+  background: var(--surface);
+  text-align: left;
+}
+.history-date.selected {
+  border-color: var(--green);
+  background: var(--green-soft);
+}
+.history-date span:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.history-date strong {
+  font-size: 13px;
+}
+.history-date small {
+  color: var(--muted);
+  font-size: 11px;
+}
+.history-count {
+  color: var(--green-dark);
+  font-weight: 800;
+  font-size: 13px;
+}
+.history-detail {
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  padding: 17px;
+  min-height: 160px;
+}
+.history-detail-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.history-detail-head h2 {
+  font:
+    700 17px "Manrope",
+    sans-serif;
+  margin: 0;
+}
+.history-detail-head span,
+.muted {
+  color: var(--muted);
+  font-size: 12px;
+}
+.history-goal {
+  min-height: 43px;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  padding-left: 3px;
+}
+.history-check {
+  width: 21px;
+  height: 21px;
+  border: 1.5px solid var(--muted);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+.history-check.checked {
+  color: white;
+  border-color: var(--green);
+  background: var(--green);
+}
+.history-empty {
+  min-height: 260px;
+}
+
+/* Goal menu click-layer fix */
+.goal-menu-wrap {
+  position: relative;
+  z-index: 5;
+}
+
+.goal-menu {
+  z-index: 6;
+}
+
+.main-card {
+  overflow: visible;
+}
+
+.menu-dismiss {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  background: transparent;
+  border: 0;
+  cursor: default;
+}
+
+@media (max-width: 700px) {
+  .app {
+    padding: 14px 12px 24px;
+  }
+  .topbar {
+    min-height: 58px;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .brand {
+    font-size: 19px;
+    gap: 8px;
+  }
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+  }
+  .nav-tabs {
+    height: 58px;
+    gap: 5px;
+  }
+  .nav-tab {
+    gap: 6px;
+    padding: 0 7px;
+    font-size: 13px;
+  }
+  .nav-tab svg {
+    width: 16px;
+  }
+  .theme-toggle {
+    width: 69px;
+    height: 37px;
+    padding: 0 6px;
+  }
+  .toggle-knob {
+    width: 27px;
+    height: 27px;
+    top: 4px;
+    left: 4px;
+  }
+  .dark .toggle-knob {
+    transform: translateX(32px);
+  }
+  .theme-toggle svg {
+    width: 15px;
+  }
+  .main-card,
+  .history-card {
+    padding: 21px 15px 17px;
+    border-radius: 19px;
+  }
+  .hero {
+    min-height: 120px;
+    padding: 0 4px;
+  }
+  .hero-mountains {
+    width: 45%;
+    height: 100px;
+    right: -7px;
+    bottom: -2px;
+    opacity: 0.55;
+  }
+  h1 {
+    font-size: 27px;
+  }
+  .tagline {
+    font-size: 13px;
+  }
+  .progress-panel {
+    padding: 13px;
+    margin-top: 5px;
+  }
+  .progress-top strong {
+    font-size: 23px;
+  }
+  .goal-row {
+    min-height: 49px;
+    gap: 10px;
+    padding-left: 10px;
+  }
+  .goal-text {
+    font-size: 13px;
+  }
+  .summary-grid {
+    gap: 8px;
+    margin-top: 13px;
+  }
+  .summary-card {
+    min-height: 83px;
+    padding: 10px 7px;
+    gap: 7px;
+    border-radius: 14px;
+  }
+  .summary-card > svg {
+    width: 20px;
+    height: 20px;
+  }
+  .summary-card span {
+    font-size: 10px;
+  }
+  .summary-card strong {
+    font-size: 16px;
+  }
+  .footer-note {
+    font-size: 10px;
+  }
+  .history-layout {
+    grid-template-columns: 1fr;
+  }
+  .history-dates {
+    max-height: 210px;
+    overflow: auto;
+  }
+}
+@media (max-width: 390px) {
+  .brand {
+    font-size: 17px;
+  }
+  .nav-tab {
+    font-size: 12px;
+    padding: 0 5px;
+  }
+  .theme-toggle {
+    width: 60px;
+  }
+  .dark .toggle-knob {
+    transform: translateX(24px);
+  }
+  .summary-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .summary-card div {
+    gap: 2px;
+  }
+}
+@media (max-width: 350px) {
+  .topbar {
+    gap: 0;
+  }
+  .brand {
+    gap: 4px;
+    font-size: 15px;
+  }
+  .brand-mark {
+    width: 29px;
+    height: 29px;
+    border-radius: 10px;
+  }
+  .nav-tabs {
+    gap: 0;
+  }
+  .nav-tab {
+    gap: 3px;
+    padding: 0 3px;
+    font-size: 10px;
+  }
+  .nav-tab svg {
+    width: 14px;
+  }
+  .theme-toggle {
+    width: 50px;
+    height: 34px;
+    padding: 0 5px;
+  }
+  .toggle-knob {
+    width: 24px;
+    height: 24px;
+  }
+  .dark .toggle-knob {
+    transform: translateX(18px);
+  }
+  .header-actions {
+    gap: 3px;
+  }
+  .account-button {
+    width: 29px;
+    height: 29px;
+  }
+}
+
+/* Firebase login and account controls */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.account-button {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface-soft);
+  color: var(--muted);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 0;
+}
+.account-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.login-card {
+  width: min(100%, 470px);
+  min-height: 510px;
+  margin: 7vh auto 0;
+  padding: 34px;
+  border: 1px solid var(--line);
+  border-radius: 25px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+.login-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font:
+    800 23px "Manrope",
+    sans-serif;
+  position: relative;
+  z-index: 1;
+}
+.login-brand .brand-mark {
+  width: 42px;
+  height: 42px;
+}
+.login-copy {
+  position: relative;
+  z-index: 1;
+  margin-top: 78px;
+  max-width: 350px;
+}
+.login-copy h1 {
+  font-size: 34px;
+  line-height: 1.15;
+  margin: 12px 0;
+}
+.login-copy p {
+  color: var(--muted);
+  line-height: 1.65;
+  font-size: 14px;
+}
+.login-mountains {
+  position: absolute;
+  width: 62%;
+  height: 155px;
+  object-fit: contain;
+  right: -12px;
+  top: 76px;
+  opacity: var(--mountain-opacity);
+}
+.google-button {
+  width: 100%;
+  min-height: 50px;
+  margin-top: 27px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.google-button:hover {
+  background: var(--surface-hover);
+}
+.google-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.setup-hint {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.setup-hint code {
+  color: var(--green-dark);
+}
+.login-privacy {
+  color: var(--muted);
+  text-align: center;
+  font-size: 11px;
+  margin-top: 24px;
+}
+.login-theme {
+  position: fixed;
+  right: 22px;
+  top: 20px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  display: grid;
+  place-items: center;
+}
+.auth-loading {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+}
+.error-message,
+.error-banner {
+  color: #b94b4b;
+  background: rgba(190, 70, 70, 0.09);
+  border: 1px solid rgba(190, 70, 70, 0.25);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.error-message {
+  margin-top: 12px;
+}
+.error-banner {
+  margin-bottom: 12px;
+}
+.sync-note {
+  color: var(--muted);
+  font-size: 11px;
+  margin: -5px 4px 10px;
+}
+@media (max-width: 600px) {
+  .login-card {
+    width: 100%;
+    min-height: 470px;
+    margin: 6vh auto 0;
+    padding: 23px 19px;
+    border-radius: 19px;
+  }
+  .login-copy {
+    margin-top: 78px;
+  }
+  .login-copy h1 {
+    font-size: 28px;
+  }
+  .login-mountains {
+    width: 58%;
+    top: 85px;
+  }
+  .account-button {
+    width: 33px;
+    height: 33px;
+  }
+  .header-actions {
+    gap: 5px;
+  }
+}
